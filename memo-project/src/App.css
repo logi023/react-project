@@ -12,6 +12,24 @@
   width: 250px;
   padding: 20px;
 }
+.SideBarFooter {
+  text-align: center;
+  margin: 10px;
+}
+.SideBarFooter .SideBarFooter__add-button {
+  background: none;
+  border-radius: 50%;
+  border: 2px solid #555;
+  color: #555;
+  width: 36px;
+  height: 36px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  cursor: pointer;
+}
 
 .MemoContainer {
   flex: 1;
@@ -27,4 +45,38 @@
   width: 100%;
   font-size: 1.1rem;
   height: 88vh;
+}
+
+.MemoItem {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 5px 8px;
+  position: relative;
+}
+.MemoItem.selected {
+  font-weight: 600;
+}
+.MemoItem .MemoItem__button-delete {
+  background: none;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  opacity: 0.55;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  cursor: pointer;
+}
+
+.nodata {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 250px);
+  text-align: center;
 }
