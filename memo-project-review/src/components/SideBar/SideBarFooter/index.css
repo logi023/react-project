@@ -1,0 +1,14 @@
+.btn-add {
+    background: none;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgb(0, 200, 83);
+    font-size: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 200, 83);
+    margin: 2rem auto;
+    cursor: pointer;
+}

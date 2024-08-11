@@ -1,0 +1,25 @@
+.memo-item {
+    padding: 12px 16px;
+    padding-right: 32px;
+    cursor: pointer;
+    transition: color 0.1s ease-in-out;
+    position: relative;
+}
+.memo-item:hover {
+    color: rgba(0, 200, 83);
+}
+.memo-item.selected {
+    background: rgba(0, 200, 83, 0.534);
+    font-weight: 600;
+    color: #fff;
+}
+.memo-item__delete {
+    background: none;
+    border: 0;
+    color: rgb(155, 255, 24);
+    font-size: 1.7rem;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
