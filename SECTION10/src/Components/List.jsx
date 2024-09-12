@@ -1,5 +1,5 @@
 import './List.css';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import TodoItem from './TodoItem';
 
 const List = ({ todos, onUpdate, onDelete }) => {
@@ -19,8 +19,24 @@ const List = ({ todos, onUpdate, onDelete }) => {
   }
   const filteredTodos = getFilteredData();
 
+  const { totalCount, doneCount, notDoneCount } = useMemo(() => {
+    // console.log('sdfsd')
+    const totalCount = todos.length;
+    const doneCount = todos.filter((todo) => todo.isDone).length; // filter는 배열을 전체 순환하기 때문에 길이가 길어질수록 오래걸림. 때문에 불필요한 
+    const notDoneCount = totalCount - doneCount;
+
+    return {
+      totalCount,
+      doneCount,
+      notDoneCount,
+    }
+  }, [todos]);
+
   return <div className='List'>
     <h4>Todo List 🌱</h4>
+    <div>total: {totalCount}</div>
+    <div>done: {doneCount}</div>
+    <div>notDone: {notDoneCount}</div>
     <input 
       value={search}
       onChange={onChangeSearch}

@@ -89,12 +89,12 @@ function App() {
   }
 
   return (
-    <>
+    <div className='App'>
       {/* <Exam /> */}
       <Header />
       <Editor onCreate={onCreate} />
       <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
-    </>
+    </div>
   )
 }
 
