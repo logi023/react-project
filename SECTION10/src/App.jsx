@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useRef, useReducer } from 'react'
+import { useState, useRef, useReducer, useCallback } from 'react'
 import Header from './Components/Header'
 import Editor from './Components/Editor'
 import List from './Components/List'
@@ -49,7 +49,7 @@ function App() {
   const [todos, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       data : {
@@ -59,9 +59,9 @@ function App() {
         date: new Date().getTime(),
       }
     })
-  }
+  }, []);
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     // todos State의 값들 중에
     // targetId와 일치하는 id를 갖는 투두 아이템의 isDone 변경
 
@@ -75,18 +75,25 @@ function App() {
       type: 'UPDATE',
       targetId: targetId,
     })
-  }
+  }, [])
 
-  const onDelete = (targetId) => {
-    // targetId가 일치하는 아이템을 todos에서 제거
+  // const onDelete = (targetId) => {
+  //   // targetId가 일치하는 아이템을 todos에서 제거
 
-    // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
-    // setTodos(todos.filter((todo) => todo.id !== targetId)); // todos 전체를 순회하면서 targetId가 일치하지 않는 todo들 필터링(노출)
+  //   // 인수: todos 배열에서 targetId와 일치하는 id를 갖는 요소만 삭제한 새로운 배열
+  //   // setTodos(todos.filter((todo) => todo.id !== targetId)); // todos 전체를 순회하면서 targetId가 일치하지 않는 todo들 필터링(노출)
+  //   dispatch({
+  //     type: 'DELETE',
+  //     targetId: targetId,
+  //   })
+  // }
+
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: 'DELETE',
       targetId: targetId,
     })
-  }
+  }, [])
 
   return (
     <div className='App'>
