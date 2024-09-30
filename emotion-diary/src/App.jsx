@@ -14,6 +14,20 @@ function reducer(state, action) {
   switch(action.type) {
     case 'CREATE' : 
       return [action.data, ...state];
+    case 'UPDATE' : 
+      return state.map(
+        (item) =>
+          String(item.id) === String(action.data.id)
+          ? action.data // item을 action.data로 대체
+          : item // 기존 item을 그대로 유지
+          // map 함수는 배열을 순회하면서 새로운 배열을 만드는데, 각 항목이 어떻게 변할지를 지정할 수 있다. 여기서 조건이 참이면 action.data(즉, 수정된 데이터)를 반환하고, 조건이 거짓이면 기존 item을 반환한다.
+      );
+    case 'DELETE' : 
+      return state.filter(
+        (item) => String(item.id) !== String(action.id)
+      );
+    default: 
+      return state;
   }
 }
 
@@ -54,12 +68,29 @@ function App() {
     })
   }
 
-  const onEditDiary = () => {
+  const onEditDiary = (id, createdDate, emotionId, content) => {
     // 기존 일기 수정
+    dispatch(
+      {
+        type: 'UPDATE',
+        data: {
+          id,
+          createdDate,
+          emotionId,
+          content,
+        },
+      }
+    )
   }
 
-  const onDeleteDiary = () => {
+  const onDeleteDiary = (id) => {
     // 기존 일기 삭제
+    dispatch(
+      {
+        type: 'DELETE',
+        id,
+      }
+    )
   }
 
   return (
@@ -71,6 +102,20 @@ function App() {
         }}
       >
         일기 추가 테스트
+      </button>
+      <button
+        onClick={() => {
+          onEditDiary(1, new Date().getTime(), 3, "수정된 일기입니다");
+        }}
+      >
+        일기 수정 테스트
+      </button>
+      <button
+        onClick={() => {
+          onDeleteDiary(1);
+        }}
+      >
+        일기 삭제 테스트
       </button>
 
       <Routes>
