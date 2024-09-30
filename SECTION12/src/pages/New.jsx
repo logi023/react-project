@@ -9,7 +9,7 @@ const New = () => {
   const { onCreateDiary } = useContext(DiaryDispatchContext); // 새로운 일기 생성하는 함수를 전달받음
   const nav = useNavigate();
 
-  const onsubmit = (input) => {
+  const onSubmit = (input) => {
     onCreateDiary(
       input.createdDate.getTime(), 
       input.emotionId, 
@@ -27,7 +27,7 @@ const New = () => {
         }
       />
       <Editor
-        onsubmit={onsubmit}
+        onSubmit={onSubmit}
       />
     </div>
   )
