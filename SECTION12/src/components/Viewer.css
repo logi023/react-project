@@ -47,9 +47,8 @@
   width: 100%;
   background: rgb(236, 236, 236);
   border-radius: 5px;
-
   word-break: keep-all;
-  overflew-wrap: word-break;
+  overflow-wrap: word-break;
 }
 
 .Viewer .content_wrap > p {
