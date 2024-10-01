@@ -1,6 +1,6 @@
 import './App.css';
 // useReducer : useState와 마찬가지로 상태관리 리액트 훅. useState와 달리 상태를 컴포넌트 외부로 분리할 수 있음.
-import { useReducer, useRef } from 'react';
+import { useReducer, useRef, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { getEmotionImage } from './util/get-emotion-image';
 
@@ -34,7 +34,7 @@ function reducer(state, action) {
 const mockData = [
   {
     id: 1,
-    createdDate: new Date().getTime(),
+    createdDate: new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
     emotionId: 1,
     content: '1번 일기 내용',
   },
@@ -45,6 +45,9 @@ const mockData = [
     content: '2번 일기 내용',
   },
 ]
+
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
 function App() {
   // data를 여러 페이지로 보낼때 프롭스로 복잡하게 주고받는 상황 방지하기 위해 useReducer 사용.
@@ -95,36 +98,21 @@ function App() {
 
   return (
     <>
-
-      <button
-        onClick={() => {
-          onCreateDiary(new Date().getTime(), 1, "Hello");
-        }}
-      >
-        일기 추가 테스트
-      </button>
-      <button
-        onClick={() => {
-          onEditDiary(1, new Date().getTime(), 3, "수정된 일기입니다");
-        }}
-      >
-        일기 수정 테스트
-      </button>
-      <button
-        onClick={() => {
-          onDeleteDiary(1);
-        }}
-      >
-        일기 삭제 테스트
-      </button>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/diary/:id" element={<Diary />} />
-        <Route path="/edit/:id" element={<Edit />} />
-        <Route path="*" element={<Notfound />} />
-      </Routes>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{
+          onCreateDiary,
+          onEditDiary,
+          onDeleteDiary,
+        }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/diary/:id" element={<Diary />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="*" element={<Notfound />} />
+          </Routes>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
     </>
   )
 }
